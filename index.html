@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script src="https://kit.fontawesome.com/657c588bea.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Todo App</div>
+        <br><br>
+        <div class="second-line">
+        <div class="box1 text"  id="task"><input type="text" class="form-control" placeholder="What have you planned for today?"></div>
+        <div class="box1 plus" id="task2" onclick="addBtn(this)"><div class="plus1"><i class="fa-solid fa-plus fa-lg"></i></div>
+    </div>
+    </div>
+        <ul class="List" id="mainlist">
+            <li class="tasklist">
+                <!-- <div class="box chap" id="chaptername"><div class="chapter">Chapter 1</div></div>
+                <div class="box pen" id="edit"><div class="pens"><i class="fa-solid fa-pen fa-lg" style="color: #101114;"></i></div></div>
+                <div class="box bin" id="deletebn"><div class="bins"><i class="fa-solid fa-trash fa-lg" style="color: #101114;"></i></div></div> -->
+            </li>
+        </ul>
+    </div>
+    <script>
+        // step 1 grabbing the input
+ let  add=document.getElementById('task2');
+    add.addEventListener('click',addBtn);
+   
+function addBtn(event){
+    let currBtn=event.currentTarget;
+    let chapname=currBtn.previousElementSibling.firstElementChild;
+    // console.log(chapname.value);
+// step 2 creating an element containing the input
+// let newli=document.createElement("li");
+// newli.className="tasklist";
+let newli=document.createElement("li");
+newli.className="tasklist";
+newli.innerHTML=`<div class="box chap" id="chaptername"><div class="chapter">${chapname.value}</div></div>
+                <div class="box pen" id="edit" onclick="editbtn(this)"><div class="pens"><i class="fa-solid fa-pen fa-lg" style="color: #101114;"></i></div></div>
+                <div class="box bin" id="deletebn" onclick="deletebtn(this)"><div class="bins"><i class="fa-solid fa-trash fa-lg" style="color: #101114;"></i></div></div>`;
+let mainlist=document.getElementById('mainlist');
+                mainlist.appendChild(newli);
+}
+// step 3 deleting the task
+// let deletebn=document.getElementById('deletebn');
+// deletebn.addEventListener('click',deletebtn);
+function deletebtn(currElement){
+    currElement.parentElement.remove();
+}
+// // step 4 editing 
+// let editbn=document.getElementById('edit');
+// editbn.addEventListener('click',editbtn);
+// function editbtn(event){
+//     let currEvent=event.firstElementChild;
+//     if(currEvent=="pens"){
+//       let currbtn=document.createElement("div");
+//       div.className="tick";
+
+//     }
+// }
+// step 4 editing 
+// let editbn=document.getElementById('edit');
+// editbn.addEventListener('click',editbtn);
+function editbtn(event){
+    let currEvent=event.firstElementChild;
+    
+    if(currEvent.className=="pens"){
+        // alert("Reach")
+       event.innerHTML=`<div class="tick"><i class="fa-solid fa-check fa-lg" style="color: #0d0f11;"></i></div></div>`;
+       let currchapname=event.previousElementSibling.firstElementChild.textContent;
+    //    console.log(currchapname);
+       let currin=document.createElement('input');
+       currin.type="text";
+    //    currin.className="form-control";
+    //    currin.classList.add("text");
+       currin.className="box2";
+       currin.placeholder="Enter your task";
+       currin.value=currchapname;
+       event.parentElement.replaceChild(currin,event.previousElementSibling);
+    }
+    else{
+          event.innerHTML=`<div class="pens"><i class="fa-solid fa-pen fa-lg" style="color: #101114;"></i></div>`;
+          let boxcontent=event.previousElementSibling.value;
+          console.log(boxcontent);
+        //   let newelem=document.createElement('div');
+        //   newelem.className="box3";
+        //   newelem.textContent=boxcontent;
+        //   event.parentElement.replaceChild(newelem,event.previousElementSibling);
+        let newelem=document.createElement('div');
+          newelem.innerHTML=`<div class="box chap" id="chaptername"><div class="chapter">${boxcontent}</div></div>`;
+          event.parentElement.replaceChild(newelem,event.previousElementSibling);
+       
+    }
+}
+    </script>
+</body>
+</html>
